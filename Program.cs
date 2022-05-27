@@ -5,8 +5,6 @@ namespace CSharpExercises
 {
     class Program
     {
-        public static string fileName = $"{DateTime.Today.Date.Day.ToString()}_StudentNumbers.txt";
-
         public static void Main(string[] args)
         {
             string userSelection = DisplayMenu();
@@ -15,15 +13,15 @@ namespace CSharpExercises
             {
                 case "1":
                     Console.WriteLine("Note: Creating a new file deletes the existing file...");
-                    CreateUpdateFile(true);
+                    StudentNumberTextFileStream.CreateUpdateFile(true);
                     break;
                 case "2":
                     Console.WriteLine("Updating the existing file...");
-                    CreateUpdateFile(false);
+                    StudentNumberTextFileStream.CreateUpdateFile(false);
                     break;
                 case "3":
                     Console.WriteLine("Reading contents of the file..");
-                    ReadFile();
+                    StudentNumberTextFileStream.ReadFile();
                     break;
                 default:
                     break;
@@ -45,62 +43,6 @@ namespace CSharpExercises
             Console.WriteLine();
 
             return userMenuSelection;
-        }
-
-        private static void CreateUpdateFile(bool isNewFile)
-        {
-            if (isNewFile)
-            {
-                using (StreamWriter file = File.CreateText(fileName))
-                {
-                    WriteDataInFile(file);
-                }
-            }
-            else
-            {
-                using (StreamWriter file = File.AppendText(fileName))
-                {
-                    WriteDataInFile(file);
-                }
-            }
-        }
-
-        private static void WriteDataInFile(StreamWriter file)
-        {
-            
-            string line;
-            do
-            {
-                Console.Write("Enter Student Number: ");
-                line = Console.ReadLine();
-
-                if (line.Length != 0 && line.StartsWith("20") && line.EndsWith("BN"))
-                {
-                    file.WriteLine(line);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Input.");
-                }
-            }
-            while (line.Length != 0);
-
-            Console.WriteLine("Exit Input Mode. Closing application..");
-        }
-
-        private static void ReadFile()
-        {
-            using (StreamReader sr = new StreamReader(fileName))
-            {
-                Console.WriteLine("FILE DATA");
-                string line = sr.ReadLine();
-
-                while (line != null)
-                {
-                    Console.WriteLine($"DATA: {line.ToUpper()}");
-                    line = sr.ReadLine();
-                }
-            }
         }
     }
 }
