@@ -5,7 +5,8 @@ namespace CSharpExercises
 {
     class Program
     {
-        public static string fileName = "out.txt";
+        public static string fileName = $"{DateTime.Today.Date.Day.ToString()}_StudentNumbers.txt";
+
         public static void Main(string[] args)
         {
             string userSelection = DisplayMenu();
@@ -13,35 +14,28 @@ namespace CSharpExercises
             switch (userSelection)
             {
                 case "1":
+                    Console.WriteLine("Note: Creating a new file deletes the existing file...");
                     CreateUpdateFile(true);
                     break;
                 case "2":
+                    Console.WriteLine("Updating the existing file...");
                     CreateUpdateFile(false);
                     break;
                 case "3":
                     Console.WriteLine("Reading contents of the file..");
-                    using (StreamReader sr = new StreamReader(fileName))
-                    {
-                        Console.WriteLine("FILE DATA");
-                        string line = sr.ReadLine();
-
-                        while (line != null)
-                        {
-                            Console.WriteLine($"DATA: {line.ToUpper()}");
-                            line = sr.ReadLine();
-                        }
-                    }
+                    ReadFile();
                     break;
                 default:
                     break;
             }
         }
 
-        public static string DisplayMenu()
+        private static string DisplayMenu()
         {
-            Console.WriteLine("Select from MENU:");
-            Console.WriteLine("Enter '1' to create the new file and input contents.");
-            Console.WriteLine("Enter '2' to update the file.");
+            //create a file that will hold all student numbers
+            Console.WriteLine("STUDENT NUMBERS Data - Select from MENU:");
+            Console.WriteLine("Enter '1' to create a new file and input contents.");
+            Console.WriteLine("Enter '2' to update or add data to the file.");
             Console.WriteLine("Enter '3' to read the file.");
             Console.WriteLine("Enter '4' to delete the file."); //TODO: implement deleting file
 
@@ -53,11 +47,10 @@ namespace CSharpExercises
             return userMenuSelection;
         }
 
-        public static void CreateUpdateFile(bool isNewFile)
+        private static void CreateUpdateFile(bool isNewFile)
         {
             if (isNewFile)
             {
-                Console.WriteLine("Note: Creating a new file deletes the existing file...");
                 using (StreamWriter file = File.CreateText(fileName))
                 {
                     WriteDataInFile(file);
@@ -65,7 +58,6 @@ namespace CSharpExercises
             }
             else
             {
-                Console.WriteLine("Updating the existing file...");
                 using (StreamWriter file = File.AppendText(fileName))
                 {
                     WriteDataInFile(file);
@@ -75,20 +67,40 @@ namespace CSharpExercises
 
         private static void WriteDataInFile(StreamWriter file)
         {
-            Console.WriteLine("[INPUT MODE] Enter data you want to input in the file...(entering blank data exits input mode)");
+            
             string line;
             do
             {
-                Console.Write("DATA: ");
+                Console.Write("Enter Student Number: ");
                 line = Console.ReadLine();
 
-                if (line.Length != 0 && line.Contains("."))
+                if (line.Length != 0 && line.StartsWith("20") && line.EndsWith("BN"))
                 {
                     file.WriteLine(line);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid Input.");
+                }
             }
             while (line.Length != 0);
+
             Console.WriteLine("Exit Input Mode. Closing application..");
+        }
+
+        private static void ReadFile()
+        {
+            using (StreamReader sr = new StreamReader(fileName))
+            {
+                Console.WriteLine("FILE DATA");
+                string line = sr.ReadLine();
+
+                while (line != null)
+                {
+                    Console.WriteLine($"DATA: {line.ToUpper()}");
+                    line = sr.ReadLine();
+                }
+            }
         }
     }
 }
