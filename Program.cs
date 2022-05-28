@@ -33,7 +33,6 @@ namespace CSharpExercises
 
         private static string DisplayMenu()
         {
-            //create a file that will hold all student numbers
             Console.WriteLine("STUDENT NUMBERS Data - Select from MENU:");
             Console.WriteLine("Enter '1' to create a new file and input contents.");
             Console.WriteLine("Enter '2' to update or add data to the file.");
