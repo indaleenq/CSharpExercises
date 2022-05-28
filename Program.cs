@@ -4,7 +4,6 @@ using System.IO;
 
 namespace CSharpExercises
 {
-    //Program class should be our UI layer (codes related to UI)
     class Program
     {
         public static void Main(string[] args)
