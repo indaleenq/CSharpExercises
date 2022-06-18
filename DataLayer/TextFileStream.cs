@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace CSharpExercises
+namespace DataLayer
 {
-    public class StudentNumberTextFileStream
+    //Data Layer
+    public class TextFileStream
     {
-        internal static string fileName = $"{DateTime.Today.Date.Day.ToString()}_StudentNumbers.txt";
+        internal static string fileName = $"{DateTime.Today.Date.Day.ToString()}_data.txt";
 
-        //(PROGRAM.cs) get menu selection from user --> (PROGRAM.cs) call appropriate data class method --> 
-        //--> (StudentNumberTextFileStream.cs) create file --> StudentNumberTextFileStream.cs) get user input -->
-        //--> (StudentNumberTextFileStream.cs) save file
-
-        //TO-BE:
-        //(PROGRAM.cs) get menu selection from user --> (PROGRAM.cs) get user data input -->
-        //--> (StudentNumberTextFileStream.cs) create file --> (StudentNumberTextFileStream.cs) save data from Program.cs
-
-        internal static void CreateUpdateFile(bool isNewFile, List<string> dataInput)
+        public static void CreateUpdateFile(bool isNewFile, List<string> dataInput)
         {
             if (isNewFile)
             {
@@ -34,7 +27,7 @@ namespace CSharpExercises
             }
         }
 
-        internal static void WriteDataInFile(StreamWriter file, List<string> dataInput)
+        private static void WriteDataInFile(StreamWriter file, List<string> dataInput)
         {
             foreach (var data in dataInput)
             {
@@ -42,7 +35,7 @@ namespace CSharpExercises
             }
         }
 
-        internal static List<string> ReadFile()
+        public static List<string> ReadFile()
         {
             List<string> dataContent = new List<string>();
 

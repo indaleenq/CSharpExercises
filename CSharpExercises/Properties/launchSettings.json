@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CSharpExercises": {
+      "commandName": "Project",
+      "commandLineArgs": "StudentNumber"
+    }
+  }
+}
