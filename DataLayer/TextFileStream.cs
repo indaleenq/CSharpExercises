@@ -53,5 +53,32 @@ namespace DataLayer
 
             return dataContent;
         }
+
+        private static void DeleteFile()
+        {
+            File.Delete(fileName);
+        }
+
+        public static bool DeleteDataInFile(string dataToDelete) //returns true if deletion is successful else false;
+        {
+            List<string> existingItems = ReadFile();
+            List<string> tempItems = new List<string>();
+
+            if (existingItems.Count > 0)
+            {
+                foreach (var item in existingItems)
+                {
+                    if (!item.Contains(dataToDelete))
+                    {
+                        tempItems.Add(item);
+                    }
+                }
+                File.Delete(fileName);
+                CreateUpdateFile(true, tempItems);
+                return true;
+            }
+
+            return false;
+        }
     }
 }
