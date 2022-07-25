@@ -53,6 +53,10 @@ namespace CSharpExercises
                     Console.WriteLine("Reading contents of the file..");
                     DisplayData();
                     break;
+                case "4":
+                    Console.WriteLine("Delete data from an existing file...");
+                    GetDataToDelete();
+                    break;
                 default:
                     break;
             }
@@ -125,6 +129,7 @@ namespace CSharpExercises
             Console.WriteLine("Enter '1' to create a new file and input contents.");
             Console.WriteLine("Enter '2' to update or add data to the file.");
             Console.WriteLine("Enter '3' to read the file.");
+            Console.WriteLine("Enter '4' to delete data from the file.");
 
             Console.WriteLine();
             Console.Write("USER INPUT:");
@@ -167,6 +172,21 @@ namespace CSharpExercises
             foreach (var data in dataContent)
             {
                 Console.WriteLine($"DATA: {data.ToUpper()}");
+            }
+        }
+
+        private static void GetDataToDelete()
+        {
+            Console.Write("Enter Data to be deleted: ");
+            string dataTobeDeleted = Console.ReadLine();
+
+            if (TextFileStream.DeleteDataInFile(dataTobeDeleted))
+            {
+                Console.WriteLine($"Successfully deleted {dataTobeDeleted} from file.");
+            }
+            else
+            {
+                Console.WriteLine("Error deleting data from file. Either data or the file is not existing.");
             }
         }
     }
