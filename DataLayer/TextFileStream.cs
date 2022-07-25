@@ -54,11 +54,6 @@ namespace DataLayer
             return dataContent;
         }
 
-        private static void DeleteFile()
-        {
-            File.Delete(fileName);
-        }
-
         public static bool DeleteDataInFile(string dataToDelete) //returns true if deletion is successful else false;
         {
             List<string> existingItems = ReadFile();
